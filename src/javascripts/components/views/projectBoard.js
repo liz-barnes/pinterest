@@ -1,6 +1,7 @@
 import axios from 'axios';
 import apiKeys from '../../helpers/apiKeys.json';
 import card from '../cards/projectCard';
+import addBoard from './addBoard';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 
@@ -21,6 +22,7 @@ const getAllUserBoards = () => new Promise((resolve, reject) => {
 
 const boardView = () => {
   $('#app').html('<h1>Boards</h1>');
+  addBoard.addBoardEvent();
   getAllUserBoards()
     .then((response) => {
       if (response.length) {

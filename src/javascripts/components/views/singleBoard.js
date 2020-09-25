@@ -1,34 +1,39 @@
 import axios from 'axios';
 import apiKeys from '../../helpers/apiKeys.json';
+import getPins from '../../helpers/data/pinData';
+import pinCard from '../cards/pinCard';
 // import getBoards from '../../helpers/data/boardData';
 
 const baseUrl = apiKeys.firebaseKeys.databaseURL;
 // import allBoards from './projectBoard';
 
+const buildSingleBoardView = () => {
+  $('#app').html('');
+  getPins.getPins()
+    .then((response) => {
+      if (response.length) {
+        response.forEach((pin) => {
+          $('#app').append(pinCard.buildPinCard(pin));
+        });
+      } else {
+        $('#app').append('<h2>NO PINS</h2>');
+      }
+    });
+};
 const showSingleBoard = () => {
   $('body').on('click', '.project-card', (e) => {
     const target = e.target.id;
     console.warn(target, 'clicked');
+    buildSingleBoardView();
   });
 };
 
-// const buildSingleBoardView = () => {
-//   $('#app').html('');
-//   getBoards.getBoards()
-//     .then((response) => {
-//       if (response.userId === ) {
-//       //   response.forEach((item) => {
-//       //     $('#app').append(card.cowMaker(item));
-//       //   });
-//       // } else {
-//       //   $('#app').append('<h2>NO COWS</h2>');
-//       // }
-//       // $('#app').append('');
-//     });
-// };
+// const singleBoardViewClickEvent = () => {
 
-const getUserBoards = () => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/projects.json?orderBy="userId"&equalTo="-MHwVPNlT57Im8XQlvIb"`)
+// }
+
+const getUserBoards = (userId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/projects.json?orderBy="userId"&equalTo="${userId}"`)
     .then((response) => {
       const userBoards = response.data;
       const boards = [];
@@ -38,7 +43,6 @@ const getUserBoards = () => new Promise((resolve, reject) => {
         });
       }
       resolve(boards);
-      console.warn(boards);
     })
     .catch((error) => reject(error));
 });
