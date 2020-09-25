@@ -1,3 +1,5 @@
+import boardData from '../../helpers/data/boardData';
+
 const buildBoardCard = (boardObject) => {
   const domString = `<div class="board-container">
                       <div class="project-card" id="${boardObject.id}" style="width: 18rem; background-image: url(${boardObject.imageUrl});">
@@ -7,6 +9,11 @@ const buildBoardCard = (boardObject) => {
                       </div>
                       <h5 class="board-id">${boardObject.boardId}</h5>
                     </div>`;
+  $('body').on('click', '.project-card .btn #delete-board-btn', (e) => {
+    e.stopImmediatePropagation();
+    $(`.project-card#${e.currentTarget.id}`).remove();
+    boardData.deleteboard(e.currentTarget.id);
+  });
   return domString;
 };
 
