@@ -16,7 +16,6 @@ const getAllUserBoards = () => new Promise((resolve, reject) => {
         });
       }
       resolve(boards);
-      console.warn(boards);
     }).catch((error) => reject(error));
 });
 

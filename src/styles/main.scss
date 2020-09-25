@@ -8,9 +8,18 @@ body {
   margin-top: 100px;
 }
 
+.board-container {
+  width: 250px;
+}
+
+.board-id {
+  text-align: left;
+}
+
 .project-card {
   height: 350px;
   background-size: cover;
   background-position: center;
   border-radius: 20px;
+  width: 350px;
 }

@@ -1,3 +1,6 @@
+// const randomId = (min, max) => Math.round(Math.random() * (max - min) + min);
+
+// id: randomId(5, 50000000),
 const projects = [
   {
     design: 'flowers',
